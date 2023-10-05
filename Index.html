@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio Digital</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+
+        #menu {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        #addItemForm {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cardápio Digital</h1>
+    <div id="menu">
+        <!-- Aqui vamos exibir os itens do cardápio -->
+    </div>
+    <div id="addItemForm">
+        <h2>Adicionar Produto</h2>
+        <input type="text" id="productName" placeholder="Nome do Produto">
+        <input type="number" id="productPrice" placeholder="Preço">
+        <button onclick="addItem()">Adicionar</button>
+    </div>
+
+    <script>
+        const menu = document.getElementById("menu");
+        const productNameInput = document.getElementById("productName");
+        const productPriceInput = document.getElementById("productPrice");
+
+        function addItem() {
+            const productName = productNameInput.value;
+            const productPrice = parseFloat(productPriceInput.value);
+
+            if (productName && !isNaN(productPrice)) {
+                const item = document.createElement("div");
+                item.className = "menuItem";
+                item.innerHTML = `
+                    <p>${productName}</p>
+                    <p>R$ ${productPrice.toFixed(2)}</p>
+                    <button onclick="removeItem(this)">Remover</button>
+                `;
+                menu.appendChild(item);
+
+                productNameInput.value = "";
+                productPriceInput.value = "";
+            }
+        }
+
+        function removeItem(button) {
+            const item = button.parentElement;
+            menu.removeChild(item);
+        }
+    </script>
+</body>
+</html>
